@@ -2,101 +2,126 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Be My Valentine ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Be My Valentine 💖</title>
 
   <style>
     body {
       font-family: Arial, sans-serif;
-      text-align: center;
-      background: #ffe6ec;
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
       height: 100vh;
       margin: 0;
       display: flex;
       justify-content: center;
       align-items: center;
-      overflow: hidden;
+      text-align: center;
     }
 
     .card {
       background: white;
       padding: 40px;
-      border-radius: 20px;
-      width: 95%;
-      max-width: 600px; /* BIGGER BOX */
-      box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+      border-radius: 25px;
+      width: 90%;
+      max-width: 600px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      position: relative;
     }
 
     h1 {
-      font-size: 28px;
-      margin-bottom: 25px;
+      margin-bottom: 30px;
     }
 
-    img {
-      width: 100%;
-      max-width: 450px;
-      border-radius: 16px;
-      margin-top: 20px;
+    .buttons {
+      position: relative;
+      height: 80px;
     }
 
     button {
-      padding: 14px 28px;
-      font-size: 20px;
+      padding: 15px 30px;
+      font-size: 18px;
       border: none;
-      border-radius: 10px;
+      border-radius: 30px;
       cursor: pointer;
-      margin: 10px;
-    }
-
-    #yesBtn {
-      background: #ff4d6d;
-      color: white;
-      font-size: 22px;
-    }
-
-    #noBtn {
-      background: #ccc;
+      transition: all 0.15s ease;
       position: absolute;
     }
 
-    .hidden {
+    #yesBtn {
+      background-color: #ff4d6d;
+      color: white;
+      left: 30%;
+      transform: scale(1.1);
+    }
+
+    #noBtn {
+      background-color: #ccc;
+      color: #333;
+      left: 55%;
+    }
+
+    #yay {
       display: none;
+      font-size: 26px;
+      padding: 30px;
+    }
+
+    video {
+      width: 100%;
+      margin-top: 25px;
+      border-radius: 20px;
     }
   </style>
 </head>
 
 <body>
 
-  <div class="card" id="card">
-    <h1 id="question">My Pineapple Muffin, Will you be my Valentine? </h1>
+  <div class="card">
 
-    <div id="buttons">
-      <button id="yesBtn" onclick="sayYes()">YES 💕</button>
-      <button id="noBtn" onmouseover="moveNo()">NO </button>
+    <!-- Question -->
+    <div id="question">
+      <h1>Hey my Pineapple Muffin ❤️</h1>
+      <h1>Would you be my Valentine?</h1>
+
+      <div class="buttons" id="buttons">
+        <button id="yesBtn" onclick="sayYes()">YES 💖</button>
+        <button id="noBtn" onmouseover="moveNo()">NO </button>
+      </div>
     </div>
 
-    <!-- Celebration content (hidden at first) -->
-    <div id="celebration" class="hidden">
-      <h1>YAAAY 🎉</h1>
-      <p>You just made me the happiest person </p>
-      <!-- CHANGE filename if needed -->
-      <img src="valentine.gif" alt="Celebration GIF">
+    <!-- Celebration -->
+    <div id="yay">
+      <h1>YAAAY 💖🎉</h1>
+      <p>You made me the happiest person ever!</p>
+
+      <video id="celebrationVideo" autoplay muted loop playsinline>
+        <source src="celebration.mp4" type="video/mp4">
+      </video>
     </div>
+
   </div>
 
   <script>
     function moveNo() {
-      const btn = document.getElementById("noBtn");
-      const x = Math.random() * (window.innerWidth - 100);
-      const y = Math.random() * (window.innerHeight - 50);
-      btn.style.left = x + "px";
-      btn.style.top = y + "px";
+      const noBtn = document.getElementById("noBtn");
+      const card = document.querySelector(".card");
+
+      const maxX = card.clientWidth - noBtn.offsetWidth;
+      const maxY = card.clientHeight - noBtn.offsetHeight;
+
+      const randomX = Math.random() * maxX;
+      const randomY = Math.random() * maxY;
+
+      noBtn.style.left = randomX + "px";
+      noBtn.style.top = randomY + "px";
     }
 
     function sayYes() {
       document.getElementById("question").style.display = "none";
-      document.getElementById("buttons").style.display = "none";
-      document.getElementById("celebration").classList.remove("hidden");
+      document.getElementById("yay").style.display = "block";
+
+      const video = document.getElementById("celebrationVideo");
+      video.currentTime = 0;
+      video.play();
     }
   </script>
 
